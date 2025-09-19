@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
         if (account.provider === "github" && user?.id) {
           try {
             console.log("💾 Salvando accessToken do GitHub no JWT callback...")
-            
+
             await prisma.integration.upsert({
               where: {
                 userId_type: {
