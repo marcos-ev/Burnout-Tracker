@@ -2,7 +2,8 @@
 
 import { useSession, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
+import Image from "next/image"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -139,33 +140,13 @@ export default function DashboardPage() {
     }
   }
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/signin")
-    }
-  }, [status, router])
-
-  useEffect(() => {
-    if (session) {
-      console.log('Sessão do usuário:', session.user);
-      setGithubConnected(session.user?.email?.includes('@') || false)
-      fetchBurnoutData()
-    }
-  }, [session])
-
-  useEffect(() => {
-    if (burnoutData && burnoutData.score > 0) {
-      setGithubConnected(true)
-    }
-  }, [burnoutData])
-
-  const fetchBurnoutData = async () => {
+  const fetchBurnoutData = useCallback(async () => {
     try {
       setIsLoading(true)
 
-      if (session?.user?.id) {
+      if ((session?.user as any)?.id) {
         try {
-          const tokenResponse = await fetch(`/api/integrations/github?userId=${session.user.id}`)
+          const tokenResponse = await fetch(`/api/integrations/github?userId=${(session?.user as any)?.id}`)
 
           if (tokenResponse.ok) {
             const tokenData = await tokenResponse.json()
@@ -203,19 +184,19 @@ export default function DashboardPage() {
             sha: "abc123",
             message: "feat: adicionar nova funcionalidade",
             date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-            author: { name: session.user?.name, email: session.user?.email }
+            author: { name: session?.user?.name, email: session?.user?.email }
           },
           {
             sha: "def456",
             message: "fix: corrigir bug crítico",
             date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-            author: { name: session.user?.name, email: session.user?.email }
+            author: { name: session?.user?.name, email: session?.user?.email }
           },
           {
             sha: "ghi789",
             message: "refactor: melhorar performance",
             date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-            author: { name: session.user?.name, email: session.user?.email }
+            author: { name: session?.user?.name, email: session?.user?.email }
           }
         ],
         issues: [
@@ -252,8 +233,26 @@ export default function DashboardPage() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [session?.user])
 
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/signin")
+    }
+  }, [status, router])
+
+  useEffect(() => {
+    if (session) {
+      setGithubConnected(session?.user?.email?.includes('@') || false)
+      fetchBurnoutData()
+    }
+  }, [session, fetchBurnoutData])
+
+  useEffect(() => {
+    if (burnoutData && burnoutData.score > 0) {
+      setGithubConnected(true)
+    }
+  }, [burnoutData])
 
   const fetchGitHubDataDirect = async (accessToken: string) => {
     const headers = {
@@ -488,14 +487,16 @@ export default function DashboardPage() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
-                    <img
-                      src={session.user?.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(session.user?.name || session.user?.email || 'User')}&background=random`}
+                    <Image
+                      src={session.user?.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(session?.user?.name || session?.user?.email || 'User')}&background=random`}
                       alt="Avatar"
+                      width={40}
+                      height={40}
                       className="w-full h-full rounded-full object-cover"
                       onError={(e) => {
                         console.log('Erro ao carregar avatar:', e);
                         const target = e.target as HTMLImageElement;
-                        target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(session.user?.name || session.user?.email || 'User')}&background=random`;
+                        target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(session?.user?.name || session?.user?.email || 'User')}&background=random`;
                       }}
                       onLoad={() => console.log('Avatar carregado com sucesso:', session.user?.image)}
                     />
@@ -504,9 +505,9 @@ export default function DashboardPage() {
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{session.user?.name}</p>
+                      <p className="text-sm font-medium leading-none">{session?.user?.name}</p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        {session.user?.email}
+                        {session?.user?.email}
                       </p>
                     </div>
                   </DropdownMenuLabel>
@@ -525,7 +526,7 @@ export default function DashboardPage() {
           {/* Welcome Section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Olá, {session.user?.name?.split(' ')[0]}! 👋
+              Olá, {session?.user?.name?.split(' ')[0]}! 👋
             </h1>
             <p className="text-gray-600">
               Aqui está um resumo da sua saúde mental como desenvolvedor
@@ -1052,7 +1053,7 @@ export default function DashboardPage() {
                         {getMotivationalPhrases(burnoutData?.score || 0).map((phrase, index) => (
                           <div key={index} className={`p-4 bg-gradient-to-r ${phrase.bgColor} rounded-lg`}>
                             <p className={`text-sm ${phrase.textColor} italic`}>
-                              "{phrase.text}"
+                              &ldquo;{phrase.text}&rdquo;
                             </p>
                           </div>
                         ))}

@@ -1,11 +1,11 @@
-import { NextAuthOptions } from "next-auth"
+import NextAuth from "next-auth"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import GitHubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { prisma } from "./db"
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   adapter: PrismaAdapter(prisma), // Habilitado para salvar usuários do GitHub
   providers: [
     // GitHub OAuth
@@ -19,11 +19,11 @@ export const authOptions: NextAuthOptions = {
 
   ],
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
   },
   debug: true,
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account }: { token: any; user: any; account: any }) {
       if (user) {
         token.id = user.id
       }
@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (token) {
         session.user.id = token.id as string
         session.user.name = token.name as string

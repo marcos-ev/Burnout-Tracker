@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
+import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
-    
+    const session = await getServerSession(authOptions) as any
+
     if (!session?.user?.id) {
       return NextResponse.json(
         { message: "Não autorizado" },
@@ -59,8 +59,8 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
-    
+    const session = await getServerSession(authOptions) as any
+
     if (!session?.user?.id) {
       return NextResponse.json(
         { message: "Não autorizado" },
@@ -108,13 +108,13 @@ async function fetchWakaTimeData(apiKey: string) {
     `https://wakatime.com/api/v1/users/current/summaries?start=${new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&end=${new Date().toISOString().split('T')[0]}`,
     { headers }
   )
-  
+
   if (!summariesResponse.ok) {
     throw new Error('Erro ao buscar dados do WakaTime')
   }
 
   const summariesData = await summariesResponse.json()
-  
+
   // Buscar sessões de hoje
   const todayResponse = await fetch(
     `https://wakatime.com/api/v1/users/current/durations?date=${new Date().toISOString().split('T')[0]}`,
@@ -130,7 +130,7 @@ async function fetchWakaTimeData(apiKey: string) {
   // Processar dados
   const dailySummaries = summariesData.data || []
   const totalTime = dailySummaries.reduce((total: number, day: any) => total + (day.grand_total?.total_seconds || 0), 0)
-  
+
   // Calcular sessões longas (mais de 4 horas)
   const longSessions = sessions.filter((session: any) => session.duration > 4 * 60).length
 
