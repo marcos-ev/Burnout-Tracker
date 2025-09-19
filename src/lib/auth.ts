@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs"
 import { prisma } from "./db"
 
 export const authOptions: NextAuthOptions = {
-  // adapter: PrismaAdapter(prisma), // Desabilitado para permitir login com credenciais
+  adapter: PrismaAdapter(prisma), // Habilitado para salvar usuários do GitHub
   providers: [
     // GitHub OAuth
     ...(process.env.GITHUB_ID && process.env.GITHUB_SECRET ? [
@@ -17,41 +17,6 @@ export const authOptions: NextAuthOptions = {
       })
     ] : []),
 
-    // Login com email/senha
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null
-        }
-
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email
-          }
-        })
-
-        if (!user) {
-          return null
-        }
-
-        // Verificar senha com bcrypt
-        if (!user.password || !(await bcrypt.compare(credentials.password, user.password))) {
-          return null
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          image: user.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || user.email)}&background=random`,
-        }
-      }
-    })
   ],
   session: {
     strategy: "jwt",
@@ -61,29 +26,15 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id
-        token.name = user.name
-        token.email = user.email
-        token.image = user.image
       }
       if (account?.access_token) {
         token.accessToken = account.access_token
 
-        // Salvar o accessToken do GitHub no banco e atualizar dados do usuário
+        // Salvar o accessToken do GitHub no banco
         if (account.provider === "github" && user?.id) {
           try {
             console.log("💾 Salvando accessToken do GitHub no JWT callback...")
-            console.log("Dados do usuário GitHub:", { name: user.name, image: user.image, email: user.email })
-
-            // Atualizar dados do usuário com informações do GitHub
-            await prisma.user.update({
-              where: { id: user.id },
-              data: {
-                name: user.name,
-                image: user.image,
-                email: user.email
-              }
-            })
-
+            
             await prisma.integration.upsert({
               where: {
                 userId_type: {

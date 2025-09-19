@@ -44,15 +44,10 @@ export default function HomePage() {
             Conecte seu GitHub para insights personalizados.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/signup">
-              <Button size="lg" className="w-full sm:w-auto">
-                <Zap className="w-4 h-4 mr-2" />
-                Começar Agora
-              </Button>
-            </Link>
             <Link href="/signin">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Já tenho conta
+              <Button size="lg" className="w-full sm:w-auto">
+                <Github className="w-4 h-4 mr-2" />
+                Conectar com GitHub
               </Button>
             </Link>
           </div>
@@ -120,10 +115,10 @@ export default function HomePage() {
           <p className="text-xl text-blue-100 mb-8">
             Junte-se a centenas de desenvolvedores que já monitoram sua saúde mental
           </p>
-          <Link href="/signup">
+          <Link href="/signin">
             <Button size="lg" variant="secondary">
-              <Zap className="w-4 h-4 mr-2" />
-              Começar Grátis Agora
+              <Github className="w-4 h-4 mr-2" />
+              Conectar com GitHub
             </Button>
           </Link>
         </div>
