@@ -1,14 +1,42 @@
 # 🧠 Burnout Tracker
 
-Uma plataforma para monitorar e prevenir burnout em desenvolvedores através de análise de dados reais.
+Uma plataforma para monitorar e prevenir burnout em desenvolvedores através de análise de dados reais do GitHub.
 
 ## 🚀 Funcionalidades
 
-- **Análise de Burnout**: Score baseado em padrões de trabalho reais
-- **Integrações**: GitHub, WakaTime, RescueTime
-- **Alertas Inteligentes**: Notificações quando necessário
-- **Dashboard Completo**: Visualização de métricas e tendências
-- **Recomendações Personalizadas**: Sugestões baseadas na análise
+- **Análise de Burnout**: Score baseado em padrões de trabalho reais do GitHub
+- **Integração GitHub**: Análise completa de commits, issues e atividade
+- **Frases Motivacionais Dinâmicas**: Mensagens personalizadas baseadas no nível de stress
+- **Dashboard Completo**: Visualização de métricas e tendências em tempo real
+- **Autenticação Segura**: Login via GitHub OAuth e email/senha com bcrypt
+- **Avatar Inteligente**: Exibição automática da foto do GitHub ou avatar personalizado
+- **Recomendações Personalizadas**: Sugestões baseadas na análise de burnout
+
+## ✨ Funcionalidades Implementadas
+
+### 🔐 Autenticação Segura
+- **GitHub OAuth**: Login rápido e seguro com conta do GitHub
+- **Email/Senha**: Cadastro tradicional com senhas criptografadas (bcrypt)
+- **Sessões JWT**: Gerenciamento seguro de sessões
+- **Avatar Inteligente**: Exibição automática da foto do GitHub ou avatar personalizado
+
+### 📊 Análise de Burnout
+- **Score Dinâmico**: Cálculo baseado em 6 fatores de stress
+- **Análise em Tempo Real**: Dados atualizados automaticamente
+- **Métricas Detalhadas**: Breakdown completo de cada fator
+- **Histórico**: Acompanhamento de tendências ao longo do tempo
+
+### 💬 Sistema Motivacional
+- **Frases Dinâmicas**: Mensagens personalizadas por nível de stress
+- **4 Níveis de Resposta**: Baixo, Moderado, Alto e Crítico
+- **Cores Intuitivas**: Visual que reflete o nível de alerta
+- **Mensagens Empáticas**: Foco no bem-estar e autocuidado
+
+### 🎨 Interface Moderna
+- **Design Responsivo**: Funciona perfeitamente em mobile e desktop
+- **Componentes shadcn/ui**: Interface moderna e acessível
+- **Tema Consistente**: Cores e tipografia harmoniosas
+- **UX Intuitiva**: Navegação simples e clara
 
 ## 🛠️ Tecnologias
 
@@ -16,15 +44,15 @@ Uma plataforma para monitorar e prevenir burnout em desenvolvedores através de 
 - **UI**: shadcn/ui, Radix UI
 - **Backend**: Next.js API Routes
 - **Database**: SQLite + Prisma ORM
-- **Auth**: NextAuth.js (GitHub, LinkedIn, Email)
+- **Auth**: NextAuth.js (GitHub OAuth + Email/Senha com bcrypt)
 - **Deploy**: Vercel
 
 ## 📦 Instalação
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/burnout-tracker.git
-cd burnout-tracker
+git clone https://github.com/marcos-ev/Burnout-Tracker.git
+cd Burnout-Tracker
 ```
 
 2. **Instale as dependências**
@@ -51,15 +79,8 @@ NEXTAUTH_SECRET="sua-chave-secreta-aqui"
 GITHUB_ID="seu-github-client-id"
 GITHUB_SECRET="seu-github-client-secret"
 
-# LinkedIn OAuth
-LINKEDIN_ID="seu-linkedin-client-id"
-LINKEDIN_SECRET="seu-linkedin-client-secret"
-
-# WakaTime API
+# WakaTime API (Opcional)
 WAKATIME_API_KEY="sua-wakatime-api-key"
-
-# RescueTime API
-RESCUETIME_API_KEY="sua-rescuetime-api-key"
 ```
 
 4. **Configure o banco de dados**
@@ -83,19 +104,8 @@ Acesse [http://localhost:3000](http://localhost:3000)
 3. Defina a URL de callback: `http://localhost:3000/api/auth/callback/github`
 4. Copie o Client ID e Client Secret
 
-### LinkedIn OAuth
-1. Acesse [LinkedIn Developer Portal](https://www.linkedin.com/developers/)
-2. Crie uma nova app
-3. Adicione a URL de callback: `http://localhost:3000/api/auth/callback/linkedin`
-4. Copie o Client ID e Client Secret
-
-### WakaTime API
+### WakaTime API (Opcional)
 1. Acesse [WakaTime Settings](https://wakatime.com/settings/account)
-2. Gere uma API Key
-3. Cole no arquivo `.env.local`
-
-### RescueTime API
-1. Acesse [RescueTime API](https://www.rescuetime.com/anapi/manage)
 2. Gere uma API Key
 3. Cole no arquivo `.env.local`
 
@@ -131,19 +141,30 @@ O score é calculado baseado em 6 fatores:
 
 ### Níveis de Risco
 
-- **0-50**: Baixo Risco ✅
-- **51-70**: Risco Médio ⚠️
-- **71-85**: Alto Risco 🚨
-- **86-100**: Risco Crítico 🔥
+- **0-39**: Baixo Risco ✅ - Frases de celebração e motivação
+- **40-59**: Risco Baixo 🟢 - Frases de manutenção e crescimento  
+- **60-79**: Risco Médio ⚠️ - Frases de alerta e cuidado
+- **80-100**: Alto Risco 🚨 - Frases de cuidado urgente e alerta
+
+### Frases Motivacionais Dinâmicas
+
+O sistema exibe frases personalizadas baseadas no seu nível de burnout:
+- **Alto stress (80+)**: "É hora de parar e respirar. Seu bem-estar é mais importante que qualquer código."
+- **Stress moderado (60-79)**: "Você está no limite. Que tal uma pausa para recarregar as energias?"
+- **Stress baixo (40-59)**: "Você está no caminho certo! Continue cuidando do seu equilíbrio."
+- **Baixo stress (0-39)**: "Parabéns! Você está mantendo um excelente equilíbrio entre trabalho e vida pessoal."
 
 ## 🎯 Roadmap
 
 ### MVP (Atual)
-- [x] Sistema de autenticação
-- [x] Dashboard básico
-- [x] Integração com GitHub
-- [x] Cálculo de score de burnout
-- [x] Alertas básicos
+- [x] Sistema de autenticação (GitHub OAuth + Email/Senha com bcrypt)
+- [x] Dashboard completo com análise em tempo real
+- [x] Integração completa com GitHub API
+- [x] Cálculo de score de burnout baseado em 6 fatores
+- [x] Frases motivacionais dinâmicas por nível de stress
+- [x] Avatar inteligente (GitHub ou personalizado)
+- [x] Interface moderna e responsiva
+- [x] Sistema de recomendações personalizadas
 
 ### Próximas Versões
 - [ ] Integração com WakaTime
@@ -175,9 +196,8 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 📞 Contato
 
-- **Email**: contato@burnouttracker.com
-- **Twitter**: [@burnouttracker](https://twitter.com/burnouttracker)
-- **GitHub**: [@burnouttracker](https://github.com/burnouttracker)
+- **GitHub**: [@marcos-ev](https://github.com/marcos-ev)
+- **Repositório**: [Burnout-Tracker](https://github.com/marcos-ev/Burnout-Tracker)
 
 ## 🙏 Agradecimentos
 
