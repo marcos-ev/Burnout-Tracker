@@ -35,9 +35,6 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto text-center max-w-4xl">
-          <Badge variant="secondary" className="mb-4">
-            🚀 MVP Lançado
-          </Badge>
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
             Monitore sua saúde mental como{" "}
             <span className="text-blue-600">desenvolvedor</span>
@@ -144,9 +141,9 @@ export default function HomePage() {
           </p>
           <p className="text-gray-500 text-sm">
             Criado e desenvolvido por{" "}
-            <a 
-              href="https://www.linkedin.com/in/marcos-eduardo-virgili/" 
-              target="_blank" 
+            <a
+              href="https://www.linkedin.com/in/marcos-eduardo-virgili/"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-blue-400 hover:text-blue-300 underline"
             >
