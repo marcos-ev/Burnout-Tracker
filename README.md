@@ -43,7 +43,7 @@ Uma plataforma para monitorar e prevenir burnout em desenvolvedores através de 
 - **Frontend**: Next.js 14, TypeScript, Tailwind CSS
 - **UI**: shadcn/ui, Radix UI
 - **Backend**: Next.js API Routes
-- **Database**: SQLite + Prisma ORM
+- **Database**: PostgreSQL (Supabase) + Prisma ORM
 - **Auth**: NextAuth.js (GitHub OAuth + Email/Senha com bcrypt)
 - **Deploy**: Vercel
 
@@ -68,8 +68,8 @@ cp env.example .env.local
 Edite o arquivo `.env.local` com suas credenciais:
 
 ```env
-# Database
-DATABASE_URL="file:./dev.db"
+# Database (Supabase PostgreSQL)
+DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres"
 
 # NextAuth
 NEXTAUTH_URL="http://localhost:3000"
@@ -81,7 +81,21 @@ GITHUB_SECRET="seu-github-client-secret"
 
 ```
 
-4. **Configure o banco de dados**
+4. **Configure o banco de dados Supabase**
+
+**4.1. Crie um projeto no Supabase:**
+1. Acesse [supabase.com](https://supabase.com)
+2. Crie uma conta gratuita
+3. Clique em "New Project"
+4. Escolha uma organização e nome do projeto
+5. Aguarde a criação (2-3 minutos)
+
+**4.2. Obtenha a URL de conexão:**
+1. Vá em **Settings → Database**
+2. Copie a **Connection String** (URI)
+3. Cole no arquivo `.env.local` como `DATABASE_URL`
+
+**4.3. Configure o Prisma:**
 ```bash
 npx prisma generate
 npx prisma db push
@@ -96,10 +110,17 @@ Acesse [http://localhost:3000](http://localhost:3000)
 
 ## 🔧 Configuração das APIs
 
+### Supabase Database
+1. Acesse [supabase.com](https://supabase.com)
+2. Crie um projeto gratuito
+3. Vá em **Settings → Database**
+4. Copie a **Connection String**
+5. Use como `DATABASE_URL` no Vercel
+
 ### GitHub OAuth
 1. Acesse [GitHub Developer Settings](https://github.com/settings/developers)
 2. Crie uma nova OAuth App
-3. Defina a URL de callback: `http://localhost:3000/api/auth/callback/github`
+3. Defina a URL de callback: `https://seu-projeto.vercel.app/api/auth/callback/github`
 4. Copie o Client ID e Client Secret
 
 

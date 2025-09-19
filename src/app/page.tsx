@@ -25,9 +25,6 @@ export default function HomePage() {
             <span className="text-2xl font-bold text-gray-900">Burnout Tracker</span>
           </div>
           <div className="flex items-center space-x-4">
-            <Link href="/signin">
-              <Button variant="ghost">Entrar</Button>
-            </Link>
             <Link href="/signup">
               <Button>Começar Grátis</Button>
             </Link>
@@ -143,7 +140,18 @@ export default function HomePage() {
             <span className="text-xl font-bold">Burnout Tracker</span>
           </div>
           <p className="text-gray-400 mb-4">
-            Monitorando a saúde mental de desenvolvedores desde 2024
+            Monitorando a saúde mental de desenvolvedores desde 2025
+          </p>
+          <p className="text-gray-500 text-sm">
+            Criado e desenvolvido por{" "}
+            <a 
+              href="https://www.linkedin.com/in/marcos-eduardo-virgili/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 underline"
+            >
+              Marcos Eduardo
+            </a>
           </p>
         </div>
       </footer>
