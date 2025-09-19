@@ -1008,7 +1008,7 @@ export default function DashboardPage() {
                           </div>
                           <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
                             <p className="text-sm text-blue-800">
-                              <strong>Progresso > Perfeição.</strong> Um commit por dia é melhor que
+                              <strong>Progresso &gt; Perfeição.</strong> Um commit por dia é melhor que
                               100 commits em um dia e depois 2 semanas sem nada.
                             </p>
                           </div>
