@@ -79,8 +79,6 @@ NEXTAUTH_SECRET="sua-chave-secreta-aqui"
 GITHUB_ID="seu-github-client-id"
 GITHUB_SECRET="seu-github-client-secret"
 
-# WakaTime API (Opcional)
-WAKATIME_API_KEY="sua-wakatime-api-key"
 ```
 
 4. **Configure o banco de dados**
@@ -104,10 +102,6 @@ Acesse [http://localhost:3000](http://localhost:3000)
 3. Defina a URL de callback: `http://localhost:3000/api/auth/callback/github`
 4. Copie o Client ID e Client Secret
 
-### WakaTime API (Opcional)
-1. Acesse [WakaTime Settings](https://wakatime.com/settings/account)
-2. Gere uma API Key
-3. Cole no arquivo `.env.local`
 
 ## 📊 Como Funciona
 
@@ -167,20 +161,20 @@ O sistema exibe frases personalizadas baseadas no seu nível de burnout:
 - [x] Sistema de recomendações personalizadas
 
 ### Próximas Versões
-- [ ] Integração com WakaTime
-- [ ] Integração com RescueTime
-- [ ] Gráficos e visualizações
-- [ ] Relatórios semanais
-- [ ] Configurações personalizadas
+- [ ] Gráficos e visualizações avançadas
+- [ ] Relatórios semanais automáticos
+- [ ] Configurações personalizadas de alertas
 - [ ] Notificações push
 - [ ] App mobile (PWA)
+- [ ] Integração com calendário
+- [ ] Análise de sentimentos em commits
 
 ## 💰 Monetização
 
 ### Planos
-- **Grátis**: 1 integração, 7 dias de histórico
-- **Pro** (R$ 9,90/mês): Integrações ilimitadas, histórico completo
-- **Equipe** (R$ 29,90/mês): Até 10 usuários, dashboard da equipe
+- **Grátis**: Análise básica do GitHub, 30 dias de histórico
+- **Pro** (R$ 9,90/mês): Análise avançada, histórico completo, relatórios
+- **Equipe** (R$ 29,90/mês): Até 10 usuários, dashboard da equipe, insights compartilhados
 
 ## 🤝 Contribuindo
 
