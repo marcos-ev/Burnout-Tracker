@@ -7,6 +7,7 @@ import { prisma } from "./db"
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma), // Habilitado para salvar usuários do GitHub
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     // GitHub OAuth
     ...(process.env.GITHUB_ID && process.env.GITHUB_SECRET ? [
@@ -21,7 +22,7 @@ export const authOptions = {
   session: {
     strategy: "jwt" as const,
   },
-  debug: true,
+  debug: process.env.NODE_ENV === "development",
   callbacks: {
     async jwt({ token, user, account }: { token: any; user: any; account: any }) {
       if (user) {

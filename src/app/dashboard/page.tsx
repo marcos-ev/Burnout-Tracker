@@ -474,116 +474,116 @@ export default function DashboardPage() {
   }
 
   return (
-    <TooltipProvider>
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white border-b">
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Brain className="w-8 h-8 text-blue-600" />
-              <span className="text-2xl font-bold text-gray-900">Burnout Tracker</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
-                    <Image
-                      src={session.user?.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(session?.user?.name || session?.user?.email || 'User')}&background=random`}
-                      alt="Avatar"
-                      width={40}
-                      height={40}
-                      className="w-full h-full rounded-full object-cover"
-                      onError={(e) => {
-                        console.log('Erro ao carregar avatar:', e);
-                        const target = e.target as HTMLImageElement;
-                        target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(session?.user?.name || session?.user?.email || 'User')}&background=random`;
-                      }}
-                      onLoad={() => console.log('Avatar carregado com sucesso:', session.user?.image)}
-                    />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{session?.user?.name}</p>
-                      <p className="text-xs leading-none text-muted-foreground">
-                        {session?.user?.email}
-                      </p>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Sair</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white border-b">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Brain className="w-8 h-8 text-blue-600" />
+            <span className="text-2xl font-bold text-gray-900">Burnout Tracker</span>
           </div>
-        </header>
-
-        <div className="container mx-auto px-4 py-8">
-          {/* Welcome Section */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Olá, {session?.user?.name?.split(' ')[0]}! 👋
-            </h1>
-            <p className="text-gray-600">
-              Aqui está um resumo da sua saúde mental como desenvolvedor
-            </p>
-          </div>
-
-          {/* Main Dashboard */}
-          <Tabs defaultValue="overview" className="space-y-6">
-            <TabsList>
-              <TabsTrigger value="overview">Visão Geral</TabsTrigger>
-              <TabsTrigger value="integrations">Integrações</TabsTrigger>
-              <TabsTrigger value="stats">Estatísticas</TabsTrigger>
-              <TabsTrigger value="insights">Insights</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="overview" className="space-y-6">
-              {/* Burnout Score Card */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span>Score de Burnout</span>
-                    <Badge
-                      variant={burnoutData?.riskLevel === "critical" ? "destructive" : "secondary"}
-                      className={getRiskColor(burnoutData?.riskLevel || "low")}
-                    >
-                      {getRiskText(burnoutData?.riskLevel || "low")}
-                    </Badge>
-                  </CardTitle>
-                  <CardDescription>
-                    Análise completa da sua atividade no GitHub nos últimos 90 dias
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="text-center">
-                      <div className="text-4xl font-bold text-gray-900 mb-2">
-                        {burnoutData?.score || 0}
-                      </div>
-                      <div className="text-sm text-gray-600">de 100</div>
-                    </div>
-                    <Progress
-                      value={burnoutData?.score || 0}
-                      className="h-3"
-                    />
-                    <div className="text-sm text-gray-600 text-center">
-                      {burnoutData?.score && burnoutData.score > 70
-                        ? "⚠️ Atenção: Você está em risco de burnout"
-                        : burnoutData?.score && burnoutData.score > 50
-                          ? "⚡ Cuidado: Monitore seus padrões de trabalho"
-                          : "✅ Tudo bem: Continue mantendo o equilíbrio"
-                      }
-                    </div>
+          <div className="flex items-center space-x-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
+                  <Image
+                    src={session.user?.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(session?.user?.name || session?.user?.email || 'User')}&background=random`}
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                    className="w-full h-full rounded-full object-cover"
+                    onError={(e) => {
+                      console.log('Erro ao carregar avatar:', e);
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(session?.user?.name || session?.user?.email || 'User')}&background=random`;
+                    }}
+                    onLoad={() => console.log('Avatar carregado com sucesso:', session.user?.image)}
+                  />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{session?.user?.name}</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {session?.user?.email}
+                    </p>
                   </div>
-                </CardContent>
-              </Card>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Sair</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      </header>
 
-              {/* Factors Grid */}
+      <div className="container mx-auto px-4 py-8">
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Olá, {session?.user?.name?.split(' ')[0]}! 👋
+          </h1>
+          <p className="text-gray-600">
+            Aqui está um resumo da sua saúde mental como desenvolvedor
+          </p>
+        </div>
+
+        {/* Main Dashboard */}
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="overview">Visão Geral</TabsTrigger>
+            <TabsTrigger value="integrations">Integrações</TabsTrigger>
+            <TabsTrigger value="stats">Estatísticas</TabsTrigger>
+            <TabsTrigger value="insights">Insights</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6">
+            {/* Burnout Score Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <span>Score de Burnout</span>
+                  <Badge
+                    variant={burnoutData?.riskLevel === "critical" ? "destructive" : "secondary"}
+                    className={getRiskColor(burnoutData?.riskLevel || "low")}
+                  >
+                    {getRiskText(burnoutData?.riskLevel || "low")}
+                  </Badge>
+                </CardTitle>
+                <CardDescription>
+                  Análise completa da sua atividade no GitHub nos últimos 90 dias
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-gray-900 mb-2">
+                      {burnoutData?.score || 0}
+                    </div>
+                    <div className="text-sm text-gray-600">de 100</div>
+                  </div>
+                  <Progress
+                    value={burnoutData?.score || 0}
+                    className="h-3"
+                  />
+                  <div className="text-sm text-gray-600 text-center">
+                    {burnoutData?.score && burnoutData.score > 70
+                      ? "⚠️ Atenção: Você está em risco de burnout"
+                      : burnoutData?.score && burnoutData.score > 50
+                        ? "⚡ Cuidado: Monitore seus padrões de trabalho"
+                        : "✅ Tudo bem: Continue mantendo o equilíbrio"
+                    }
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Factors Grid */}
+            <TooltipProvider>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Card>
                   <CardHeader className="pb-3">
@@ -699,374 +699,374 @@ export default function DashboardPage() {
                   </CardContent>
                 </Card>
               </div>
+            </TooltipProvider>
 
-              {/* Recommendations */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <AlertTriangle className="w-5 h-5 mr-2 text-orange-500" />
-                    Recomendações
-                  </CardTitle>
-                  <CardDescription>
-                    Sugestões baseadas na sua análise atual
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {burnoutData?.recommendations.map((rec, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-gray-700">{rec}</p>
+            {/* Recommendations */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <AlertTriangle className="w-5 h-5 mr-2 text-orange-500" />
+                  Recomendações
+                </CardTitle>
+                <CardDescription>
+                  Sugestões baseadas na sua análise atual
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {burnoutData?.recommendations.map((rec, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm text-gray-700">{rec}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="integrations" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Integrações</CardTitle>
+                <CardDescription>
+                  Conecte suas ferramentas para análise completa
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <Github className="w-8 h-8 text-gray-900" />
+                      <div>
+                        <h3 className="font-medium">GitHub</h3>
+                        <p className="text-sm text-gray-600">Análise de commits e PRs</p>
                       </div>
-                    ))}
+                    </div>
+                    {githubConnected ? (
+                      <Button variant="outline" size="sm" disabled className="bg-green-50 border-green-200 text-green-700">
+                        <CheckCircle className="w-4 h-4 mr-2" />
+                        Conectado
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.location.href = '/api/auth/signin?callbackUrl=/dashboard'}
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Conectar
+                      </Button>
+                    )}
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
 
-            <TabsContent value="integrations" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Integrações</CardTitle>
-                  <CardDescription>
-                    Conecte suas ferramentas para análise completa
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="stats" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>📊 Estatísticas Detalhadas - Últimos 90 Dias</CardTitle>
+                <CardDescription>
+                  Análise completa da sua atividade no GitHub
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* Cards Principais */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                  <div className="text-center p-6 bg-blue-50 rounded-lg border border-blue-200">
+                    <div className="text-4xl font-bold text-blue-600 mb-2">
+                      {realData?.commits?.length || 0}
+                    </div>
+                    <div className="text-sm text-gray-600 font-medium">Total de Commits</div>
+                    <div className="text-xs text-blue-500 mt-1">
+                      {realData?.commits ? Math.round(realData.commits.length / 90 * 10) / 10 : 0} por dia
+                    </div>
+                  </div>
+
+                  <div className="text-center p-6 bg-green-50 rounded-lg border border-green-200">
+                    <div className="text-4xl font-bold text-green-600 mb-2">
+                      {realData?.issues?.filter((issue: any) => issue.state === "closed").length || 0}
+                    </div>
+                    <div className="text-sm text-gray-600 font-medium">Issues Resolvidas</div>
+                    <div className="text-xs text-green-500 mt-1">
+                      {realData?.issues ? Math.round((realData.issues.filter((issue: any) => issue.state === "closed").length / 90) * 10) / 10 : 0} por dia
+                    </div>
+                  </div>
+
+                  <div className="text-center p-6 bg-orange-50 rounded-lg border border-orange-200">
+                    <div className="text-4xl font-bold text-orange-600 mb-2">
+                      {realData?.issues?.filter((issue: any) => issue.state === "open").length || 0}
+                    </div>
+                    <div className="text-sm text-gray-600 font-medium">Issues Abertas</div>
+                    <div className="text-xs text-orange-500 mt-1">
+                      Pendentes para resolver
+                    </div>
+                  </div>
+
+                  <div className="text-center p-6 bg-purple-50 rounded-lg border border-purple-200">
+                    <div className="text-4xl font-bold text-purple-600 mb-2">
+                      {realData?.commits ?
+                        new Set(realData.commits.map((commit: any) =>
+                          new Date(commit.date).toDateString()
+                        )).size : 0
+                      }
+                    </div>
+                    <div className="text-sm text-gray-600 font-medium">Dias Ativos</div>
+                    <div className="text-xs text-purple-500 mt-1">
+                      {realData?.commits ?
+                        Math.round((new Set(realData.commits.map((commit: any) =>
+                          new Date(commit.date).toDateString()
+                        )).size / 90) * 100) : 0
+                      }% dos últimos 90 dias
+                    </div>
+                  </div>
+                </div>
+
+                {/* Análise Detalhada */}
+                <div className="grid lg:grid-cols-3 gap-6 mb-8">
+                  {/* Padrões de Trabalho */}
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <Github className="w-8 h-8 text-gray-900" />
+                    <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">🕐 Padrões de Trabalho</h3>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center p-4 bg-red-50 rounded-lg border border-red-200">
                         <div>
-                          <h3 className="font-medium">GitHub</h3>
-                          <p className="text-sm text-gray-600">Análise de commits e PRs</p>
+                          <span className="text-sm font-medium text-gray-700">Commits Noturnos</span>
+                          <div className="text-xs text-gray-500">22h - 6h</div>
                         </div>
+                        <span className="text-xl font-bold text-red-600">
+                          {realData?.commits?.filter((commit: any) => {
+                            const hour = new Date(commit.date).getHours()
+                            return hour >= 22 || hour <= 6
+                          }).length || 0}
+                        </span>
                       </div>
-                      {githubConnected ? (
-                        <Button variant="outline" size="sm" disabled className="bg-green-50 border-green-200 text-green-700">
-                          <CheckCircle className="w-4 h-4 mr-2" />
-                          Conectado
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => window.location.href = '/api/auth/signin?callbackUrl=/dashboard'}
-                        >
-                          <Plus className="w-4 h-4 mr-2" />
-                          Conectar
-                        </Button>
-                      )}
-                    </div>
 
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+                      <div className="flex justify-between items-center p-4 bg-orange-50 rounded-lg border border-orange-200">
+                        <div>
+                          <span className="text-sm font-medium text-gray-700">Fins de Semana</span>
+                          <div className="text-xs text-gray-500">Sábado e Domingo</div>
+                        </div>
+                        <span className="text-xl font-bold text-orange-600">
+                          {realData?.commits?.filter((commit: any) => {
+                            const day = new Date(commit.date).getDay()
+                            return day === 0 || day === 6
+                          }).length || 0}
+                        </span>
+                      </div>
 
-            <TabsContent value="stats" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>📊 Estatísticas Detalhadas - Últimos 90 Dias</CardTitle>
-                  <CardDescription>
-                    Análise completa da sua atividade no GitHub
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {/* Cards Principais */}
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div className="text-center p-6 bg-blue-50 rounded-lg border border-blue-200">
-                      <div className="text-4xl font-bold text-blue-600 mb-2">
-                        {realData?.commits?.length || 0}
-                      </div>
-                      <div className="text-sm text-gray-600 font-medium">Total de Commits</div>
-                      <div className="text-xs text-blue-500 mt-1">
-                        {realData?.commits ? Math.round(realData.commits.length / 90 * 10) / 10 : 0} por dia
-                      </div>
-                    </div>
-
-                    <div className="text-center p-6 bg-green-50 rounded-lg border border-green-200">
-                      <div className="text-4xl font-bold text-green-600 mb-2">
-                        {realData?.issues?.filter((issue: any) => issue.state === "closed").length || 0}
-                      </div>
-                      <div className="text-sm text-gray-600 font-medium">Issues Resolvidas</div>
-                      <div className="text-xs text-green-500 mt-1">
-                        {realData?.issues ? Math.round((realData.issues.filter((issue: any) => issue.state === "closed").length / 90) * 10) / 10 : 0} por dia
-                      </div>
-                    </div>
-
-                    <div className="text-center p-6 bg-orange-50 rounded-lg border border-orange-200">
-                      <div className="text-4xl font-bold text-orange-600 mb-2">
-                        {realData?.issues?.filter((issue: any) => issue.state === "open").length || 0}
-                      </div>
-                      <div className="text-sm text-gray-600 font-medium">Issues Abertas</div>
-                      <div className="text-xs text-orange-500 mt-1">
-                        Pendentes para resolver
-                      </div>
-                    </div>
-
-                    <div className="text-center p-6 bg-purple-50 rounded-lg border border-purple-200">
-                      <div className="text-4xl font-bold text-purple-600 mb-2">
-                        {realData?.commits ?
-                          new Set(realData.commits.map((commit: any) =>
-                            new Date(commit.date).toDateString()
-                          )).size : 0
-                        }
-                      </div>
-                      <div className="text-sm text-gray-600 font-medium">Dias Ativos</div>
-                      <div className="text-xs text-purple-500 mt-1">
-                        {realData?.commits ?
-                          Math.round((new Set(realData.commits.map((commit: any) =>
-                            new Date(commit.date).toDateString()
-                          )).size / 90) * 100) : 0
-                        }% dos últimos 90 dias
+                      <div className="flex justify-between items-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <div>
+                          <span className="text-sm font-medium text-gray-700">Horário Comercial</span>
+                          <div className="text-xs text-gray-500">9h - 18h</div>
+                        </div>
+                        <span className="text-xl font-bold text-yellow-600">
+                          {realData?.commits?.filter((commit: any) => {
+                            const hour = new Date(commit.date).getHours()
+                            return hour >= 9 && hour <= 18
+                          }).length || 0}
+                        </span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Análise Detalhada */}
-                  <div className="grid lg:grid-cols-3 gap-6 mb-8">
-                    {/* Padrões de Trabalho */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">🕐 Padrões de Trabalho</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center p-4 bg-red-50 rounded-lg border border-red-200">
-                          <div>
-                            <span className="text-sm font-medium text-gray-700">Commits Noturnos</span>
-                            <div className="text-xs text-gray-500">22h - 6h</div>
-                          </div>
-                          <span className="text-xl font-bold text-red-600">
-                            {realData?.commits?.filter((commit: any) => {
-                              const hour = new Date(commit.date).getHours()
-                              return hour >= 22 || hour <= 6
-                            }).length || 0}
-                          </span>
+                  {/* Análise de Produtividade */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">📈 Produtividade</h3>
+                    <div className="space-y-3">
+                      <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <div className="text-sm font-medium text-blue-800 mb-1">Maior Sequência</div>
+                        <div className="text-2xl font-bold text-blue-600">
+                          {realData?.commits ?
+                            Math.max(...Array.from({ length: 90 }, (_, i) => {
+                              const date = new Date(Date.now() - (89 - i) * 24 * 60 * 60 * 1000)
+                              const dayCommits = realData.commits.filter((commit: any) =>
+                                new Date(commit.date).toDateString() === date.toDateString()
+                              ).length
+                              return dayCommits
+                            })) : 0
+                          } commits
                         </div>
-
-                        <div className="flex justify-between items-center p-4 bg-orange-50 rounded-lg border border-orange-200">
-                          <div>
-                            <span className="text-sm font-medium text-gray-700">Fins de Semana</span>
-                            <div className="text-xs text-gray-500">Sábado e Domingo</div>
-                          </div>
-                          <span className="text-xl font-bold text-orange-600">
-                            {realData?.commits?.filter((commit: any) => {
-                              const day = new Date(commit.date).getDay()
-                              return day === 0 || day === 6
-                            }).length || 0}
-                          </span>
-                        </div>
-
-                        <div className="flex justify-between items-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                          <div>
-                            <span className="text-sm font-medium text-gray-700">Horário Comercial</span>
-                            <div className="text-xs text-gray-500">9h - 18h</div>
-                          </div>
-                          <span className="text-xl font-bold text-yellow-600">
-                            {realData?.commits?.filter((commit: any) => {
-                              const hour = new Date(commit.date).getHours()
-                              return hour >= 9 && hour <= 18
-                            }).length || 0}
-                          </span>
-                        </div>
+                        <div className="text-xs text-blue-600">em um único dia</div>
                       </div>
-                    </div>
 
-                    {/* Análise de Produtividade */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">📈 Produtividade</h3>
-                      <div className="space-y-3">
-                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                          <div className="text-sm font-medium text-blue-800 mb-1">Maior Sequência</div>
-                          <div className="text-2xl font-bold text-blue-600">
-                            {realData?.commits ?
-                              Math.max(...Array.from({ length: 90 }, (_, i) => {
-                                const date = new Date(Date.now() - (89 - i) * 24 * 60 * 60 * 1000)
-                                const dayCommits = realData.commits.filter((commit: any) =>
+                      <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="text-sm font-medium text-green-800 mb-1">Sequência Ativa</div>
+                        <div className="text-2xl font-bold text-green-600">
+                          {realData?.commits ?
+                            (() => {
+                              let maxStreak = 0
+                              let currentStreak = 0
+                              for (let i = 89; i >= 0; i--) {
+                                const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000)
+                                const hasCommits = realData.commits.some((commit: any) =>
                                   new Date(commit.date).toDateString() === date.toDateString()
-                                ).length
-                                return dayCommits
-                              })) : 0
-                            } commits
-                          </div>
-                          <div className="text-xs text-blue-600">em um único dia</div>
-                        </div>
-
-                        <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                          <div className="text-sm font-medium text-green-800 mb-1">Sequência Ativa</div>
-                          <div className="text-2xl font-bold text-green-600">
-                            {realData?.commits ?
-                              (() => {
-                                let maxStreak = 0
-                                let currentStreak = 0
-                                for (let i = 89; i >= 0; i--) {
-                                  const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000)
-                                  const hasCommits = realData.commits.some((commit: any) =>
-                                    new Date(commit.date).toDateString() === date.toDateString()
-                                  )
-                                  if (hasCommits) {
-                                    currentStreak++
-                                    maxStreak = Math.max(maxStreak, currentStreak)
-                                  } else {
-                                    currentStreak = 0
-                                  }
+                                )
+                                if (hasCommits) {
+                                  currentStreak++
+                                  maxStreak = Math.max(maxStreak, currentStreak)
+                                } else {
+                                  currentStreak = 0
                                 }
-                                return maxStreak
-                              })() : 0
-                            } dias
-                          </div>
-                          <div className="text-xs text-green-600">consecutivos com commits</div>
+                              }
+                              return maxStreak
+                            })() : 0
+                          } dias
                         </div>
+                        <div className="text-xs text-green-600">consecutivos com commits</div>
                       </div>
                     </div>
+                  </div>
 
-                    {/* Resumo de Issues */}
+                  {/* Resumo de Issues */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">🎯 Issues & PRs</h3>
+                    <div className="space-y-3">
+                      <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="text-sm font-medium text-green-800 mb-1">Taxa de Resolução</div>
+                        <div className="text-2xl font-bold text-green-600">
+                          {realData?.issues ?
+                            Math.round((realData.issues.filter((issue: any) => issue.state === "closed").length /
+                              Math.max(realData.issues.length, 1)) * 100) : 0
+                          }%
+                        </div>
+                        <div className="text-xs text-green-600">issues resolvidas</div>
+                      </div>
+
+                      <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <div className="text-sm font-medium text-purple-800 mb-1">Tempo Médio</div>
+                        <div className="text-2xl font-bold text-purple-600">
+                          {realData?.issues?.filter((issue: any) => issue.closed_at) ?
+                            Math.round(realData.issues.filter((issue: any) => issue.closed_at)
+                              .reduce((acc: number, issue: any) => {
+                                const created = new Date(issue.created_at)
+                                const closed = new Date(issue.closed_at)
+                                return acc + (closed.getTime() - created.getTime()) / (1000 * 60 * 60 * 24)
+                              }, 0) / realData.issues.filter((issue: any) => issue.closed_at).length) || 0
+                            : 0} dias
+                        </div>
+                        <div className="text-xs text-purple-600">para resolver issues</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Distribuição por Dia da Semana */}
+                <div className="mb-8">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">📅 Distribuição por Dia da Semana</h3>
+                  <div className="grid grid-cols-7 gap-2">
+                    {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((day, index) => {
+                      const dayCommits = realData?.commits?.filter((commit: any) =>
+                        new Date(commit.date).getDay() === index
+                      ).length || 0
+                      const maxCommits = Math.max(...(realData?.commits ?
+                        Array.from({ length: 7 }, (_, i) =>
+                          realData.commits.filter((commit: any) =>
+                            new Date(commit.date).getDay() === i
+                          ).length
+                        ) : [0]))
+                      const percentage = maxCommits > 0 ? (dayCommits / maxCommits) * 100 : 0
+
+                      return (
+                        <div key={day} className="text-center">
+                          <div className="text-xs text-gray-600 mb-2">{day}</div>
+                          <div className="bg-gray-200 rounded h-20 flex items-end justify-center">
+                            <div
+                              className="bg-blue-500 rounded-t w-full transition-all duration-300"
+                              style={{ height: `${Math.max(percentage, 5)}%` }}
+                            ></div>
+                          </div>
+                          <div className="text-xs font-medium text-gray-700 mt-1">{dayCommits}</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="insights" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>💡 Insights e Motivação</CardTitle>
+                <CardDescription>
+                  Dicas para manter sua saúde mental como desenvolvedor
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">🎯 Issues & PRs</h3>
+                      <h3 className="text-lg font-semibold text-green-600">🌱 Mentalidade Saudável</h3>
                       <div className="space-y-3">
-                        <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                          <div className="text-sm font-medium text-green-800 mb-1">Taxa de Resolução</div>
-                          <div className="text-2xl font-bold text-green-600">
-                            {realData?.issues ?
-                              Math.round((realData.issues.filter((issue: any) => issue.state === "closed").length /
-                                Math.max(realData.issues.length, 1)) * 100) : 0
-                            }%
-                          </div>
-                          <div className="text-xs text-green-600">issues resolvidas</div>
+                        <div className="p-4 bg-green-50 rounded-lg border-l-4 border-green-400">
+                          <p className="text-sm text-green-800">
+                            <strong>Não se compare com outros devs.</strong> Cada pessoa tem seu ritmo,
+                            suas circunstâncias e seus objetivos únicos.
+                          </p>
                         </div>
+                        <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                          <p className="text-sm text-blue-800">
+                            <strong>Progresso &gt; Perfeição.</strong> Um commit por dia é melhor que
+                            100 commits em um dia e depois 2 semanas sem nada.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-400">
+                          <p className="text-sm text-purple-800">
+                            <strong>Descanso é produtividade.</strong> Seu cérebro precisa de pausas
+                            para processar e consolidar o aprendizado.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
 
-                        <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                          <div className="text-sm font-medium text-purple-800 mb-1">Tempo Médio</div>
-                          <div className="text-2xl font-bold text-purple-600">
-                            {realData?.issues?.filter((issue: any) => issue.closed_at) ?
-                              Math.round(realData.issues.filter((issue: any) => issue.closed_at)
-                                .reduce((acc: number, issue: any) => {
-                                  const created = new Date(issue.created_at)
-                                  const closed = new Date(issue.closed_at)
-                                  return acc + (closed.getTime() - created.getTime()) / (1000 * 60 * 60 * 24)
-                                }, 0) / realData.issues.filter((issue: any) => issue.closed_at).length) || 0
-                              : 0} dias
-                          </div>
-                          <div className="text-xs text-purple-600">para resolver issues</div>
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-orange-600">⚡ Dicas Práticas</h3>
+                      <div className="space-y-3">
+                        <div className="p-4 bg-orange-50 rounded-lg">
+                          <p className="text-sm text-orange-800">
+                            <strong>Pomodoro:</strong> 25min focado + 5min pausa.
+                            Seu cérebro agradece!
+                          </p>
+                        </div>
+                        <div className="p-4 bg-yellow-50 rounded-lg">
+                          <p className="text-sm text-yellow-800">
+                            <strong>Commits pequenos:</strong> Melhor 5 commits pequenos
+                            que 1 commit gigante.
+                          </p>
+                        </div>
+                        <div className="p-4 bg-pink-50 rounded-lg">
+                          <p className="text-sm text-pink-800">
+                            <strong>Celebre pequenas vitórias:</strong> Cada bug resolvido,
+                            cada feature implementada é uma conquista!
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Distribuição por Dia da Semana */}
-                  <div className="mb-8">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">📅 Distribuição por Dia da Semana</h3>
-                    <div className="grid grid-cols-7 gap-2">
-                      {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((day, index) => {
-                        const dayCommits = realData?.commits?.filter((commit: any) =>
-                          new Date(commit.date).getDay() === index
-                        ).length || 0
-                        const maxCommits = Math.max(...(realData?.commits ?
-                          Array.from({ length: 7 }, (_, i) =>
-                            realData.commits.filter((commit: any) =>
-                              new Date(commit.date).getDay() === i
-                            ).length
-                          ) : [0]))
-                        const percentage = maxCommits > 0 ? (dayCommits / maxCommits) * 100 : 0
-
-                        return (
-                          <div key={day} className="text-center">
-                            <div className="text-xs text-gray-600 mb-2">{day}</div>
-                            <div className="bg-gray-200 rounded h-20 flex items-end justify-center">
-                              <div
-                                className="bg-blue-500 rounded-t w-full transition-all duration-300"
-                                style={{ height: `${Math.max(percentage, 5)}%` }}
-                              ></div>
-                            </div>
-                            <div className="text-xs font-medium text-gray-700 mt-1">{dayCommits}</div>
-                          </div>
-                        )
-                      })}
+                  <div className="border-t pt-6">
+                    <h3 className="text-lg font-semibold text-indigo-600 mb-4">🎯 Frases Motivacionais</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {getMotivationalPhrases(burnoutData?.score || 0).map((phrase, index) => (
+                        <div key={index} className={`p-4 bg-gradient-to-r ${phrase.bgColor} rounded-lg`}>
+                          <p className={`text-sm ${phrase.textColor} italic`}>
+                            &ldquo;{phrase.text}&rdquo;
+                          </p>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="insights" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>💡 Insights e Motivação</CardTitle>
-                  <CardDescription>
-                    Dicas para manter sua saúde mental como desenvolvedor
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-green-600">🌱 Mentalidade Saudável</h3>
-                        <div className="space-y-3">
-                          <div className="p-4 bg-green-50 rounded-lg border-l-4 border-green-400">
-                            <p className="text-sm text-green-800">
-                              <strong>Não se compare com outros devs.</strong> Cada pessoa tem seu ritmo,
-                              suas circunstâncias e seus objetivos únicos.
-                            </p>
-                          </div>
-                          <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-                            <p className="text-sm text-blue-800">
-                              <strong>Progresso &gt; Perfeição.</strong> Um commit por dia é melhor que
-                              100 commits em um dia e depois 2 semanas sem nada.
-                            </p>
-                          </div>
-                          <div className="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-400">
-                            <p className="text-sm text-purple-800">
-                              <strong>Descanso é produtividade.</strong> Seu cérebro precisa de pausas
-                              para processar e consolidar o aprendizado.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-orange-600">⚡ Dicas Práticas</h3>
-                        <div className="space-y-3">
-                          <div className="p-4 bg-orange-50 rounded-lg">
-                            <p className="text-sm text-orange-800">
-                              <strong>Pomodoro:</strong> 25min focado + 5min pausa.
-                              Seu cérebro agradece!
-                            </p>
-                          </div>
-                          <div className="p-4 bg-yellow-50 rounded-lg">
-                            <p className="text-sm text-yellow-800">
-                              <strong>Commits pequenos:</strong> Melhor 5 commits pequenos
-                              que 1 commit gigante.
-                            </p>
-                          </div>
-                          <div className="p-4 bg-pink-50 rounded-lg">
-                            <p className="text-sm text-pink-800">
-                              <strong>Celebre pequenas vitórias:</strong> Cada bug resolvido,
-                              cada feature implementada é uma conquista!
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="border-t pt-6">
-                      <h3 className="text-lg font-semibold text-indigo-600 mb-4">🎯 Frases Motivacionais</h3>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        {getMotivationalPhrases(burnoutData?.score || 0).map((phrase, index) => (
-                          <div key={index} className={`p-4 bg-gradient-to-r ${phrase.bgColor} rounded-lg`}>
-                            <p className={`text-sm ${phrase.textColor} italic`}>
-                              &ldquo;{phrase.text}&rdquo;
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-    </TooltipProvider>
+    </div>
   )
 }
 
